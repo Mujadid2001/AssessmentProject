@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "framework": "vite",
+  "builds": [
+    {
+      "src": "backend/wsgi_vercel.py",
+      "use": "@vercel/python@latest",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "runtime": "python3.11",
+        "requirements": "requirements.txt"
+      }
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/dist",
+        "buildCommand": "npm install && npm run build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/wsgi_vercel.application"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/dist/index.html",
+      "status": 200
+    }
+  ],
+  "env": {
+    "DEBUG": {
+      "value": "False"
+    },
+    "SECRET_KEY": {
+      "value": "@SECRET_KEY"
+    },
+    "ALLOWED_HOSTS": {
+      "value": "@ALLOWED_HOSTS"
+    },
+    "CORS_ALLOWED_ORIGINS": {
+      "value": "@CORS_ALLOWED_ORIGINS"
+    },
+    "DATABASE_URL": {
+      "value": "@DATABASE_URL"
+    },
+    "PYTHON_VERSION": {
+      "value": "3.11"
+    }
+  },
+  "regions": ["iad1"],
+  "functions": {
+    "backend/wsgi_vercel.application": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  }
+}
+
