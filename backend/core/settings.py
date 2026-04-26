@@ -64,11 +64,12 @@ def get_database_config():
     if database_url:
         # PostgreSQL via Neon.tech
         import dj_database_url
-        return dj_database_url.config(
+        config = dj_database_url.config(
             default=database_url,
             conn_max_age=600,
             conn_health_checks=True,
         )
+        return {'default': config} if 'default' not in config else config
     else:
         # SQLite for development
         return {
@@ -141,9 +142,9 @@ CORS_ALLOWED_ORIGINS = [
 # Production: Database connection pooling
 if not DEBUG and "DATABASES" in locals():
     DATABASES["default"]["CONN_MAX_AGE"] = 600
+    # Neon pooler endpoint doesn't support statement_timeout in OPTIONS
     DATABASES["default"]["OPTIONS"] = {
         "connect_timeout": 10,
-        "options": "-c statement_timeout=30000"
     }
 
 # Production: Logging
