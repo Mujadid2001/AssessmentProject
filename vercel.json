@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
   "framework": "vite",
   "builds": [
     {
@@ -9,14 +11,6 @@
         "maxLambdaSize": "50mb",
         "runtime": "python3.11",
         "requirements": "requirements.txt"
-      }
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "frontend/dist",
-        "buildCommand": "npm install && npm run build"
       }
     }
   ],
