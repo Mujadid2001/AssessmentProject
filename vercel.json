@@ -1,9 +1,15 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist",
   "framework": "vite",
   "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/dist",
+        "buildCommand": "npm install && npm run build"
+      }
+    },
     {
       "src": "backend/wsgi_vercel.py",
       "use": "@vercel/python@latest",
@@ -20,9 +26,20 @@
       "dest": "backend/wsgi_vercel.application"
     },
     {
+      "src": "/static/(.*)",
+      "dest": "frontend/dist/static/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "frontend/dist/assets/$1"
+    },
+    {
+      "src": "/(.*\\..*)",
+      "dest": "frontend/dist/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "frontend/dist/index.html",
-      "status": 200
+      "dest": "frontend/dist/index.html"
     }
   ],
   "env": {
