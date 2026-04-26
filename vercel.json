@@ -1,9 +1,6 @@
 {
   "version": 2,
-  "framework": "vite",
   "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist",
-  "public": "frontend/dist",
   "builds": [
     {
       "src": "backend/wsgi_vercel.py",
@@ -21,17 +18,24 @@
       "dest": "backend/wsgi_vercel.application"
     },
     {
+      "src": "/admin/(.*)",
+      "dest": "backend/wsgi_vercel.application"
+    },
+    {
       "src": "/assets/(.*)",
-      "headers": {"cache-control": "public, max-age=31536000, immutable"},
-      "dest": "/assets/$1"
+      "continue": true
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "frontend/dist/favicon.ico"
     },
     {
       "src": "/(.*\\..*)",
-      "dest": "/$1"
+      "dest": "frontend/dist/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "frontend/dist/index.html"
     }
   ],
   "env": {
