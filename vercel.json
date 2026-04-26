@@ -34,24 +34,12 @@
     }
   ],
   "env": {
-    "DEBUG": {
-      "value": "False"
-    },
-    "SECRET_KEY": {
-      "value": "@SECRET_KEY"
-    },
-    "ALLOWED_HOSTS": {
-      "value": "@ALLOWED_HOSTS"
-    },
-    "CORS_ALLOWED_ORIGINS": {
-      "value": "@CORS_ALLOWED_ORIGINS"
-    },
-    "DATABASE_URL": {
-      "value": "@DATABASE_URL"
-    },
-    "PYTHON_VERSION": {
-      "value": "3.11"
-    }
+    "DEBUG": "False",
+    "SECRET_KEY": "@SECRET_KEY",
+    "ALLOWED_HOSTS": "@ALLOWED_HOSTS",
+    "CORS_ALLOWED_ORIGINS": "@CORS_ALLOWED_ORIGINS",
+    "DATABASE_URL": "@DATABASE_URL",
+    "PYTHON_VERSION": "3.11"
   },
   "regions": ["iad1"]
 }
