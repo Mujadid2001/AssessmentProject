@@ -1,15 +1,9 @@
 {
   "version": 2,
+  "buildCommand": "cd frontend && npm install && npm run build && cd ..",
+  "outputDirectory": "frontend/dist",
   "framework": "vite",
   "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "frontend/dist",
-        "buildCommand": "npm install && npm run build"
-      }
-    },
     {
       "src": "backend/wsgi_vercel.py",
       "use": "@vercel/python@latest",
