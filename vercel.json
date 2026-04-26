@@ -53,12 +53,6 @@
       "value": "3.11"
     }
   },
-  "regions": ["iad1"],
-  "functions": {
-    "backend/wsgi_vercel.application": {
-      "maxDuration": 60,
-      "memory": 1024
-    }
-  }
+  "regions": ["iad1"]
 }
 
