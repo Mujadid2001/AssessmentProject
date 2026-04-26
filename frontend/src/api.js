@@ -3,7 +3,11 @@
  * Handles all HTTP communication with Django REST API
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+// Use relative URL in production, localhost in development
+const API_BASE_URL = import.meta.env.VITE_API_URL || 
+  (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+    ? '/api'  // Production: use same domain
+    : 'http://localhost:8000/api');  // Development: use localhost
 
 class APIClient {
   /**
